@@ -22,6 +22,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 io.on('connection', socket =>{
     console.log('socket connected');
+
+    socket.on('chatMessage', msg =>{
+        console.log(msg);
+    })
 })
 
 const PORT = 3000 || process.env.PORT;
