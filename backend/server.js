@@ -4,6 +4,7 @@ const http = require('http');
 const moment = require('moment');
 const socketio = require('socket.io');
 const mongoose = require('mongoose');
+const userFromDb = require('./models/userModel');
 
 //database connection
 mongoose.connect('mongodb+srv://ric:mobilecomputing2122@cluster0.finip.mongodb.net/test?retryWrites=true&w=majority', {
@@ -14,11 +15,16 @@ mongoose.connect('mongodb+srv://ric:mobilecomputing2122@cluster0.finip.mongodb.n
     console.log(err);
     })
 
+const authRoutes = require('./routes/authRoutes');
+
 const app = express();
 const server = http.createServer(app);
 const io = socketio(server);
 
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.urlencoded({extended : true}));
+app.use(express.json());
+app.use(authRoutes);
 
 io.on('connection', socket =>{
     console.log('socket connected');
