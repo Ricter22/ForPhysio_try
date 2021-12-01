@@ -15,7 +15,7 @@ router.post('/signup', (req, res)=>{
         if(err){ console.log("Error with the database");};
 
         if(result!=null){
-            res.send('Username already used');
+            return res.status(422).send('Invalid username')
         }
         else{
             const user = new userFromDb({username:username, password:password});
@@ -35,7 +35,7 @@ router.post('/signin', (req, res)=>{
         if(err){ console.log("Error with the database");};
 
         if(result==null){
-            res.send('Invalid username or password');
+            return res.status(422).send('Invalid username or password');
         }
         else{
             result.comparePassword(password, function(err, isMatch) {
@@ -44,7 +44,7 @@ router.post('/signin', (req, res)=>{
                 if (isMatch){
                     res.send('Login successful');
                 }else{
-                    alert("Invalid username e/o password");
+                    return res.status(422).send('Invalid username or password');
                 }
             });
         }
