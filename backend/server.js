@@ -27,9 +27,9 @@ app.use(express.json());
 app.use(authRoutes);
 
 io.on('connection', socket =>{
-    console.log('socket connected');
+    console.log('user connected');
 
-    socket.on('chatMessage', msg =>{
+    socket.on('chat message', msg =>{
         console.log(msg);
     })
 })
