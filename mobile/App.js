@@ -1,8 +1,9 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import LoginScreen from './Screens/loginScreen'
 import HomeScreen from './Screens/homeScreen'
-import SecondScreen from './Screens/secondScreen'
+import RegistrationScreen from './Screens/registrationScreen'
 
 const Stack = createNativeStackNavigator();
 
@@ -12,12 +13,16 @@ class App extends React.Component {
       <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen
-          name="Home"
-          component={HomeScreen}
+          name="Login"
+          component={LoginScreen}
         />
         <Stack.Screen
-            name="Second"
-            component={SecondScreen}
+            name="Home"
+            component={HomeScreen}
+          />
+        <Stack.Screen
+            name="Registration"
+            component={RegistrationScreen}
           />
       </Stack.Navigator>
     </NavigationContainer>
