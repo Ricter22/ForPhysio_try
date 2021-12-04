@@ -13,6 +13,8 @@ class App extends React.Component {
   //with navigation, then in the classes we'll use the navigate 
   //method to move from one page to another
   render() {
+    let x = 1;
+    console.log("App executed");
     return (
       <NavigationContainer>
       <Stack.Navigator>
