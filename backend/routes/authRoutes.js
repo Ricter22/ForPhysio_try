@@ -4,6 +4,18 @@ const mongoose = require('mongoose');
 const router = express.Router();
 const userFromDb = require('../models/userModel');
 
+router.post('/test', (req, res)=>{
+    const username = req.body.username;
+    const password = req.body.password;
+    console.log( username + ' ' + password );
+    if (username == 'test'){
+        return res.status(200).send('Valid username');
+    }
+    else{
+        return res.status(422).send('Invalid username');
+    }
+})
+
 //register post
 router.post('/signup', (req, res)=>{
     console.log(req.body);
@@ -20,7 +32,7 @@ router.post('/signup', (req, res)=>{
         else{
             const user = new userFromDb({username:username, password:password});
             user.save();
-            res.send('User registered');
+            res.status(200).send('User registered');
         }
     })
 })
@@ -42,7 +54,7 @@ router.post('/signin', (req, res)=>{
                 if (err) throw err;
                 //console.log(password, isMatch);
                 if (isMatch){
-                    res.send('Login successful');
+                    res.status(200).send('Login successful');
                 }else{
                     return res.status(422).send('Invalid username or password');
                 }
