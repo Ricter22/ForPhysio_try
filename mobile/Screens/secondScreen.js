@@ -5,7 +5,7 @@ class SecondScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text>Second Page</Text>
+        <Text>Second page!</Text>
 
         <Button
           title="Go to Home"

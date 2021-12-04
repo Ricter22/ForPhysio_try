@@ -30,7 +30,7 @@ class HomeScreen extends Component {
 
         return (
         <View style={styles.container}>
-            <Text>HOME</Text>
+            <Text>Welcome page</Text>
 
             <Button
             title="Go to Second"

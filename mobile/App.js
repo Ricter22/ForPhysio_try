@@ -8,6 +8,8 @@ const Stack = createNativeStackNavigator();
 
 class App extends React.Component {
   render() {
+    let x = 1;
+    console.log("App executed");
     return (
       <NavigationContainer>
       <Stack.Navigator>
