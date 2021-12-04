@@ -11,30 +11,31 @@ class RegistrationScreen extends Component {
       }
 
     submitRegistration() {
-    //try to post something to the server
-    
-    fetch('http://192.168.178.92:3000/signup', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        username : this.state.username,
-        password : this.state.password
-      }),
-    })
-    .then(res =>{
-      if (res.status !== 200){
-        alert('Invalid username');
-      }
-      else{
-        alert('User registered');
-        this.props.navigation.navigate('Login');
-      }
-    })
 
-    this.setState({ username: "" });
-    this.setState({ password: "" });
+        //here we post the credentials to the signup route in the server
+        //and we wait for the response
+        fetch('http://192.168.178.92:3000/signup', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            username : this.state.username,
+            password : this.state.password
+        }),
+        })
+        .then(res =>{
+        if (res.status !== 200){
+            alert('Invalid username');
+        }
+        else{
+            alert('User registered');
+            this.props.navigation.navigate('Login');
+        }
+        })
+
+        this.setState({ username: "" });
+        this.setState({ password: "" });
     }
 
     render() {

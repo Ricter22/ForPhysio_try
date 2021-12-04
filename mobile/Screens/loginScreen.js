@@ -11,30 +11,35 @@ class LoginScreen extends Component {
       }
 
     submitLogin() {
-    //try to post something to the server
     
-    fetch('http://192.168.178.92:3000/signin', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        username : this.state.username,
-        password : this.state.password
-      }),
-    })
-    .then(res =>{
-      if (res.status !== 200){
-        alert('Invalid username or password');
-      }
-      else{
-        alert('Succesful login')
-        this.props.navigation.navigate('Home')
-      }
-    })
-
-    this.setState({ username: "" });
-    this.setState({ password: "" });
+      //here we're going to post the username and password inserted in the
+      //login page, in particulare this is a post request to the /signin route
+      //in the server that will response with status:200 if the credentials are in the 
+      //database and with status:422 if not
+      fetch('http://192.168.178.92:3000/signin', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          username : this.state.username,
+          password : this.state.password
+        }),
+      }) //here we handle the status response of the server
+      .then(res =>{
+        if (res.status !== 200){
+          alert('Invalid username or password');
+        }
+        else{
+          alert('Succesful login')
+          this.props.navigation.navigate('Home')
+        }
+      })
+      //here we set again username and password as blank
+      //probably in the future we'll need to send the credentials to the home page 
+      //to create the user for the socket.io chat
+      this.setState({ username: "" });
+      this.setState({ password: "" });
     }
 
     render() {

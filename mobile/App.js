@@ -8,6 +8,10 @@ import RegistrationScreen from './Screens/registrationScreen'
 const Stack = createNativeStackNavigator();
 
 class App extends React.Component {
+
+  //In the render here we define the application Screen routes
+  //with navigation, then in the classes we'll use the navigate 
+  //method to move from one page to another
   render() {
     return (
       <NavigationContainer>

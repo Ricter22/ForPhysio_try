@@ -29,8 +29,9 @@ app.use(authRoutes);
 io.on('connection', socket =>{
     console.log('user connected');
 
-    socket.on('chat message', msg =>{
+    socket.on('msg', msg =>{
         console.log(msg);
+        io.emit('msg', msg);
     })
 })
 
