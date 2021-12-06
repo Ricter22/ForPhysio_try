@@ -12,6 +12,7 @@ class LoginScreen extends Component {
 
   submitLogin() {
 
+    const bool = true;
     //here we're going to post the username and password inserted in the
     //login page, in particulare this is a post request to the /signin route
     //in the server that will response with status:200 if the credentials are in the 
@@ -32,7 +33,12 @@ class LoginScreen extends Component {
         }
         else {
           alert('Succesful login')
-          this.props.navigation.navigate('Chat')
+          if (bool){
+            this.props.navigation.navigate('test')
+          }
+          else{
+            this.props.navigation.navigate('Chat')
+          }
         }
       })
     //here we set again username and password as blank

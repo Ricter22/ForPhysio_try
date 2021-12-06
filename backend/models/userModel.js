@@ -3,7 +3,8 @@ const bcrypt = require('bcrypt');
 
 const UserSchema = new mongoose.Schema({
     username:String,
-    password: String
+    password: String,
+    physio: Boolean
 })
 
 //Here we'll do the encryption

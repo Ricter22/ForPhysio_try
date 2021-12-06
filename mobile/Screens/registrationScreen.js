@@ -1,12 +1,13 @@
 import React, {Component} from 'react';
-import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
+import { StyleSheet, Text, View, Button, TextInput, Switch } from 'react-native';
 
 class RegistrationScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
           username: "",
-          password: ""
+          password: "",
+          physio: false
         };
       }
 
@@ -21,7 +22,8 @@ class RegistrationScreen extends Component {
         },
         body: JSON.stringify({
             username : this.state.username,
-            password : this.state.password
+            password : this.state.password,
+            physio : this.state.physio
         }),
         })
         .then(res =>{
@@ -36,6 +38,7 @@ class RegistrationScreen extends Component {
 
         this.setState({ username: "" });
         this.setState({ password: "" });
+        this.setState({ physio: false});
     }
 
     render() {
@@ -65,7 +68,15 @@ class RegistrationScreen extends Component {
                 this.setState({ password });
               }}
             />
-
+            <Switch
+            trackColor={{ false: "#767577", true: "#81b0ff" }}
+            thumbColor={this.state.physio ? "#f5dd4b" : "#f4f3f4"}
+            ios_backgroundColor="#3e3e3e"
+            onValueChange={physio => {
+              this.setState({ physio })
+            }}
+            value={this.state.physio}
+            />
             <Button
             title="Register"
             onPress={() =>

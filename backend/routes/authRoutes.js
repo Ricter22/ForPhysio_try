@@ -22,6 +22,7 @@ router.post('/signup', (req, res)=>{
 
     const username = req.body.username;
     const password = req.body.password;
+    const physio = req.body.physio;
 
     userFromDb.findOne({'username':username}, function(err, result){
         if(err){ console.log("Error with the database");};
@@ -30,7 +31,7 @@ router.post('/signup', (req, res)=>{
             return res.status(422).send('Invalid username')
         }
         else{
-            const user = new userFromDb({username:username, password:password});
+            const user = new userFromDb({username:username, password:password, physio:physio});
             user.save();
             res.status(200).send('User registered');
         }
@@ -54,7 +55,8 @@ router.post('/signin', (req, res)=>{
                 if (err) throw err;
                 //console.log(password, isMatch);
                 if (isMatch){
-                    res.status(200).send('Login successful');
+                    res.status(200).send('ok');
+                    console.log(result.physio);
                 }else{
                     return res.status(422).send('Invalid username or password');
                 }

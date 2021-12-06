@@ -19,6 +19,15 @@ function HomeTabs() {
   );
 }
 
+function PhysioTabs(){
+  return (
+    <Tab.Navigator>
+      <Tab.Screen name="Home" component={HomeScreen} />
+      <Tab.Screen name="Chat" component={ChatScreen} />
+    </Tab.Navigator>
+  );
+}
+
 class App extends React.Component {
 
   //In the render here we define the application Screen routes
@@ -42,6 +51,10 @@ class App extends React.Component {
             name="Registration"
             component={RegistrationScreen}
           />
+        <Stack.Screen
+            name="test"
+            component={PhysioTabs}
+        />
       </Stack.Navigator>
     </NavigationContainer>
     );
