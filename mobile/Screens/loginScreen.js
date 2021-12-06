@@ -32,7 +32,7 @@ class LoginScreen extends Component {
         }
         else {
           alert('Succesful login')
-          this.props.navigation.navigate('Forum')
+          this.props.navigation.navigate('Chat')
         }
       })
     //here we set again username and password as blank
