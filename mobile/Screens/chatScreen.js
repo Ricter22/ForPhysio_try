@@ -9,7 +9,8 @@ class ChatScreen extends Component {
     super(props);
     this.state = {
       msg : "",
-      msgList: []
+      msgList: [],
+      user: this.props.route.params.user
     };
   }
 
@@ -24,6 +25,7 @@ class ChatScreen extends Component {
   }
 
   sendMessage(){
+    
     this.socket.emit("msg", this.state.msg);
     this.setState({ msg: "" });
   }

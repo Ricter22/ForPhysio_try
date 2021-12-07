@@ -73,10 +73,10 @@ router.post('/signin', (req, res)=>{
                 //console.log(password, isMatch);
                 if (isMatch){
                     if (result.physio){
-                        res.status(201).send('Physio');
+                        res.status(201).send(JSON.stringify({result})); //physio
                     }
                     else {
-                        res.status(200).send(JSON.stringify({username: "Luca"}));
+                        res.status(200).send(JSON.stringify({result})); //client
                     }
                 }else{
                     return res.status(422).send('Invalid username or password');

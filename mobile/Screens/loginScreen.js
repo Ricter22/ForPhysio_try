@@ -26,19 +26,22 @@ class LoginScreen extends Component {
         password: this.state.password
       }),
     }) //here we handle the status response of the server
-      .then(res => {
-        if (res.status == 200) {
+      .then(r =>  r.json().then(data => ({status: r.status, body: data})))
+      .then(obj => {
+        console.log(obj.body.result);
+        if (obj.status == 200) {
           alert('Succesful login')
-          this.props.navigation.navigate('Chat')
+          this.props.navigation.navigate('Chat', {user : obj.body.result})
         }
-        else if (res.status == 201){
+        else if (obj.status == 201){
           alert('Succesful login')
-          this.props.navigation.navigate('test')  
+          this.props.navigation.navigate('test', {user : obj.body.result})  
         }
         else {
           alert('Unsuccesful login')
         }
-      })
+      });
+      
     //here we set again username and password as blank
     //probably in the future we'll need to send the credentials to the home page 
     //to create the user for the socket.io chat
