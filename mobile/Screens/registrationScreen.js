@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { StyleSheet, Text, View, Button, TextInput, Switch } from 'react-native';
+import { StyleSheet, Text, View, Button, TextInput, Switch, TouchableOpacity } from 'react-native';
 
 class RegistrationScreen extends Component {
     constructor(props) {
@@ -53,28 +53,48 @@ class RegistrationScreen extends Component {
 
         return (
         <View style={styles.container}>
-            <Text>REGISTRATION</Text>
 
+            <Text>Username</Text>
+            <View style={styles.inputView}>
             <TextInput
-            style={styles.TextInput}
-            placeholder = "Username"
-            autoCorrect = {false}
-            value = {this.state.username}
-            onChangeText = {username => {
-                this.setState({ username });
-              }}
+            style={styles.inputText}
+            placeholder="Username"
+            autoCorrect={false}
+            value={this.state.username}
+            onChangeText={(username) => {
+              this.setState({ username });
+            }}
             />
+            </View>
             
+            <Text>Password</Text>
+            <View style={styles.inputView}>
             <TextInput
-            style={styles.TextInput}
+            style={styles.inputText}
             placeholder="Password"
             autoCorrect={false}
             secureTextEntry={true}
-            value = {this.state.password}
-            onChangeText = {password => {
-                this.setState({ password });
-              }}
+            value={this.state.password}
+            onChangeText={(password) => {
+              this.setState({ password });
+            }}
             />
+            </View>       
+
+            <Text>Repeat password</Text>
+            <View style={styles.inputView}>
+            <TextInput
+            style={styles.inputText}
+            placeholder="Password"
+            autoCorrect={false}
+            secureTextEntry={true}
+            value={this.state.password}
+            onChangeText={(password) => {
+              this.setState({ password });
+            }}
+            />
+            </View>
+
             <TextInput
             style={styles.TextInput}
             placeholder="Code"
@@ -94,19 +114,23 @@ class RegistrationScreen extends Component {
             }}
             value={this.state.physio}
             />
-            <Button
-            title="Register"
-            onPress={() =>
-                this.submitRegistration()
-              }
-            />
-            {/* this will be the button for the registration page */}
-            <Button
-            title="Go to Login"
-            onPress={() =>
-                this.props.navigation.navigate('Login')
-            }
-            />
+                
+            <TouchableOpacity
+             style={styles.signupBtn}
+            onPress={(e) => {
+            this.props.navigation.setOptions({ title: "User registered!" });
+            this.submitRegistration();
+            }}
+            >
+            <Text>Sign up</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+            style={styles.loginBtn}
+            onPress={() => this.props.navigation.navigate("Login")}
+            >
+            <Text>Go to login</Text>
+            </TouchableOpacity>
           </View>
         );
     }
@@ -115,17 +139,48 @@ class RegistrationScreen extends Component {
 // ...
 const styles = StyleSheet.create({
     container: {
-      flex: 1,
-      backgroundColor: '#fff',
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-    TextInput: {
-      height: 40,
-      width: 200,
-      borderWidth: 2,
-      padding:10
-    }
+    flex: 1,
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  logo: {
+    fontWeight: "bold",
+    fontSize: 50,
+    color: "#fb5b5a",
+    marginBottom: 40,
+  },
+  inputView: {
+    width: "80%",
+    backgroundColor: "#90EAFC",
+    borderRadius: 25,
+    height: 50,
+    marginBottom: 15,
+    justifyContent: "center",
+    padding: 20,
+  },
+  inputText: {
+    height: 50,
+    color: "white",
+  },
+  loginBtn: {
+    width: "40%",
+    backgroundColor: "#59F66E",
+    borderRadius: 25,
+    height: 50,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  signupBtn: {
+    width: "40%",
+    backgroundColor: "#33B6F7",
+    borderRadius: 25,
+    height: 50,
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 25,
+    marginBottom: 8,
+  },
   });
 
 export default RegistrationScreen;
