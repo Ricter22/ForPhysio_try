@@ -1,21 +1,32 @@
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import LoginScreen from "./Screens/loginScreen";
-import HomeScreen from "./Screens/homeScreen";
+import ChatScreen from "./Screens/chatScreen";
 import RegistrationScreen from "./Screens/registrationScreen";
-
-/*const ImageHeader = (props) => (
-  <View style={{ backgroundColor: "#eee" }}>
-    <Image
-      style={StyleSheet.absoluteFill}
-      source={require("./mobile/images/lightlogo_preview_rev_1.png")}
-    />
-    <Header {...props} style={{ backgroundColor: "transparent" }} />
-  </View>
-);*/
+import HomeScreen from "./Screens/homeScreen";
 
 const Stack = createNativeStackNavigator();
+const Tab = createBottomTabNavigator();
+
+function HomeTabs() {
+  return (
+    <Tab.Navigator>
+      <Tab.Screen name="Chat" component={ChatScreen} />
+      <Tab.Screen name="Home" component={HomeScreen} />
+    </Tab.Navigator>
+  );
+}
+
+function PhysioTabs() {
+  return (
+    <Tab.Navigator>
+      <Tab.Screen name="Home" component={HomeScreen} />
+      <Tab.Screen name="Chat" component={ChatScreen} />
+    </Tab.Navigator>
+  );
+}
 
 class App extends React.Component {
   //In the render here we define the application Screen routes
@@ -44,6 +55,11 @@ class App extends React.Component {
               //header: (props) => <ImageHeader {...props} />,
             }}
           />
+          <Stack.Screen
+            name="Chat"
+            component={HomeTabs}
+            options={{ headerShown: false }}
+          />
           <Stack.Screen name="Home" component={HomeScreen} />
           <Stack.Screen
             name="Registration"
@@ -52,6 +68,7 @@ class App extends React.Component {
               title: "Sign up",
             }}
           />
+          <Stack.Screen name="test" component={PhysioTabs} />
         </Stack.Navigator>
       </NavigationContainer>
     );

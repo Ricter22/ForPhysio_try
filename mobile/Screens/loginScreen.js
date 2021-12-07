@@ -6,6 +6,7 @@ import {
   View,
   Button,
   TextInput,
+  Image,
 } from "react-native";
 
 class LoginScreen extends Component {
@@ -23,6 +24,7 @@ class LoginScreen extends Component {
     //in the server that will response with status:200 if the credentials are in the
     //database and with status:422 if not
     fetch("http://192.168.178.92:3000/signin", {
+      //192.168.178.92
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -32,12 +34,19 @@ class LoginScreen extends Component {
         password: this.state.password,
       }),
     }) //here we handle the status response of the server
+      /*.then(res => res.json())
+      .then((data => {
+        alert(data.username)
+      }))*/
       .then((res) => {
-        if (res.status !== 200) {
-          alert("Invalid username or password");
-        } else {
+        if (res.status == 200) {
           alert("Succesful login");
-          this.props.navigation.navigate("Home");
+          this.props.navigation.navigate("Chat");
+        } else if (res.status == 201) {
+          alert("Succesful login");
+          this.props.navigation.navigate("test");
+        } else {
+          alert("Unsuccesful login");
         }
       });
     //here we set again username and password as blank
@@ -50,6 +59,15 @@ class LoginScreen extends Component {
   render() {
     return (
       <View style={styles.container}>
+        <Image
+          source={require("../images/lightlogo_preview_rev_1.png")}
+          style={{
+            width: "50%",
+            resizeMode: "contain",
+            marginBottom: 10,
+            marginTop: 5,
+          }}
+        />
         <Text>Username</Text>
         <View style={styles.inputView}>
           <TextInput

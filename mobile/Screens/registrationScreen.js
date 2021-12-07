@@ -5,7 +5,9 @@ import {
   View,
   Button,
   TextInput,
+  Switch,
   TouchableOpacity,
+  Image,
 } from "react-native";
 
 class RegistrationScreen extends Component {
@@ -14,6 +16,8 @@ class RegistrationScreen extends Component {
     this.state = {
       username: "",
       password: "",
+      physio: false,
+      code: "",
     };
   }
 
@@ -28,10 +32,16 @@ class RegistrationScreen extends Component {
       body: JSON.stringify({
         username: this.state.username,
         password: this.state.password,
+        physio: this.state.physio,
+        code: this.state.code,
       }),
     }).then((res) => {
       if (res.status !== 200) {
-        alert("Invalid username");
+        if (res.status == 422) {
+          alert("Invalid username");
+        } else if (res.status == 423) {
+          alert("Invalid code");
+        }
       } else {
         alert("User registered");
         this.props.navigation.navigate("Login");
@@ -40,7 +50,12 @@ class RegistrationScreen extends Component {
 
     this.setState({ username: "" });
     this.setState({ password: "" });
+    this.setState({ code: "" });
+    this.setState({ physio: false });
   }
+
+  //this.setState({ username: "" });
+  //this.setState({ password: "" });
 
   render() {
     return (
@@ -102,6 +117,26 @@ class RegistrationScreen extends Component {
         >
           <Text>Go to login</Text>
         </TouchableOpacity>
+
+        <TextInput
+          style={styles.TextInput}
+          placeholder="Code"
+          autoCorrect={false}
+          secureTextEntry={true}
+          value={this.state.code}
+          onChangeText={(code) => {
+            this.setState({ code });
+          }}
+        />
+        <Switch
+          trackColor={{ false: "#767577", true: "#81b0ff" }}
+          thumbColor={this.state.physio ? "#f5dd4b" : "#f4f3f4"}
+          ios_backgroundColor="#3e3e3e"
+          onValueChange={(physio) => {
+            this.setState({ physio });
+          }}
+          value={this.state.physio}
+        />
       </View>
     );
   }

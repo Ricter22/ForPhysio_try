@@ -22,6 +22,8 @@ router.post('/signup', (req, res)=>{
 
     const username = req.body.username;
     const password = req.body.password;
+    const physio = req.body.physio;
+    const code = req.body.code;
 
     userFromDb.findOne({'username':username}, function(err, result){
         if(err){ console.log("Error with the database");};
@@ -30,9 +32,25 @@ router.post('/signup', (req, res)=>{
             return res.status(422).send('Invalid username')
         }
         else{
-            const user = new userFromDb({username:username, password:password});
-            user.save();
-            res.status(200).send('User registered');
+            if (physio){
+                userFromDb.findOne({'code':code}, function(err, result){
+                    if(err){ console.log("Error with the database");};
+    
+                    if (result!=null){
+                        return res.status(423).send('Invalid code')
+                    }
+                    else{
+                        const user = new userFromDb({username:username, password:password, physio:physio, code:code});
+                        user.save();
+                        res.status(200).send('User registered');
+                    }
+                })
+            }
+            else{
+                const user = new userFromDb({username:username, password:password, physio:physio, code:code});
+                user.save();
+                res.status(200).send('User registered');
+            }
         }
     })
 })
@@ -54,7 +72,12 @@ router.post('/signin', (req, res)=>{
                 if (err) throw err;
                 //console.log(password, isMatch);
                 if (isMatch){
-                    res.status(200).send('Login successful');
+                    if (result.physio){
+                        res.status(201).send('Physio');
+                    }
+                    else {
+                        res.status(200).send(JSON.stringify({username: "Luca"}));
+                    }
                 }else{
                     return res.status(422).send('Invalid username or password');
                 }
