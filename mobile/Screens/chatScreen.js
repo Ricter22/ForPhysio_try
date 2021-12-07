@@ -14,7 +14,7 @@ class ChatScreen extends Component {
   }
 
   componentDidMount() {
-    this.socket = io("http://192.168.178.92:3000", { //192.168.178.92 ric ip
+    this.socket = io("http://192.168.196.145:3000", { //192.168.178.92 ric ip
       transports: ['websocket'] //this line is fundamental
     });
     this.socket.on('msg', msg =>{

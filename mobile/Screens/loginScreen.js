@@ -16,7 +16,7 @@ class LoginScreen extends Component {
     //login page, in particulare this is a post request to the /signin route
     //in the server that will response with status:200 if the credentials are in the 
     //database and with status:422 if not
-    fetch('http://192.168.178.92:3000/signin', {//192.168.178.92
+    fetch('http://192.168.196.145:3000/signin', {//192.168.178.92
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -26,10 +26,6 @@ class LoginScreen extends Component {
         password: this.state.password
       }),
     }) //here we handle the status response of the server
-      /*.then(res => res.json())
-      .then((data => {
-        alert(data.username)
-      }))*/
       .then(res => {
         if (res.status == 200) {
           alert('Succesful login')
