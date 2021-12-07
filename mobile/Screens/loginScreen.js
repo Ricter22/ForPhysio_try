@@ -31,7 +31,10 @@ class LoginScreen extends Component {
         console.log(obj.body.result);
         if (obj.status == 200) {
           alert('Succesful login')
-          this.props.navigation.navigate('Chat', {user : obj.body.result})
+          this.props.navigation.navigate('Chat', {
+            screen : 'Chat',
+            params: {user : obj.body.result},
+          })
         }
         else if (obj.status == 201){
           alert('Succesful login')

@@ -10,16 +10,22 @@ class ChatScreen extends Component {
     this.state = {
       msg : "",
       msgList: [],
-      user: this.props.route.params.user
     };
   }
 
+  
+
   componentDidMount() {
+    //Now we have the informations about the user 
+    //so we can display for example the name in 
+    //themessages
+    //const {user} = this.props.route.params;
+    //alert(user.username);
+
     this.socket = io("http://192.168.196.145:3000", { //192.168.178.92 ric ip
       transports: ['websocket'] //this line is fundamental
     });
     this.socket.on('msg', msg =>{
-      alert(msg);
       this.setState({msgList: [...this.state.msgList, msg]})
     })
   }
