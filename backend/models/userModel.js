@@ -2,9 +2,10 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 
 const UserSchema = new mongoose.Schema({
-    username:String,
+    username: String,
     password: String,
-    physio: Boolean
+    physio: Boolean,
+    code: String
 })
 
 //Here we'll do the encryption

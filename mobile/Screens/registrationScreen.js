@@ -7,7 +7,8 @@ class RegistrationScreen extends Component {
         this.state = {
           username: "",
           password: "",
-          physio: false
+          physio: false,
+          code: ""
         };
       }
 
@@ -23,12 +24,18 @@ class RegistrationScreen extends Component {
         body: JSON.stringify({
             username : this.state.username,
             password : this.state.password,
-            physio : this.state.physio
+            physio : this.state.physio,
+            code : this.state.code
         }),
         })
         .then(res =>{
         if (res.status !== 200){
-            alert('Invalid username');
+          if (res.status == 422){
+            alert('Invalid username')
+          }
+          else if (res.status == 423){
+            alert('Invalid code')
+          }
         }
         else{
             alert('User registered');
@@ -38,6 +45,7 @@ class RegistrationScreen extends Component {
 
         this.setState({ username: "" });
         this.setState({ password: "" });
+        this.setState({ code: "" });
         this.setState({ physio: false});
     }
 
@@ -57,7 +65,6 @@ class RegistrationScreen extends Component {
               }}
             />
             
-
             <TextInput
             style={styles.TextInput}
             placeholder="Password"
@@ -66,6 +73,16 @@ class RegistrationScreen extends Component {
             value = {this.state.password}
             onChangeText = {password => {
                 this.setState({ password });
+              }}
+            />
+            <TextInput
+            style={styles.TextInput}
+            placeholder="Code"
+            autoCorrect={false}
+            secureTextEntry={true}
+            value = {this.state.code}
+            onChangeText = {code => {
+                this.setState({ code });
               }}
             />
             <Switch
