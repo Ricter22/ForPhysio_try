@@ -47,7 +47,7 @@ class App extends React.Component {
               fontWeight: "bold",
             },
           }}
-        >>
+        >
       <Stack.Screen
             name="Login"
             component={LoginScreen}
