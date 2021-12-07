@@ -2,6 +2,14 @@ import React, { Component } from "react";
 import { StyleSheet, Text, View, Button, TextInput,ImageBackground,TouchableOpacity } from "react-native";
 
 class HomeScreen extends Component {
+  signupPressed = ()=>{
+    Alert.alert("Completed Sign Up")
+  }
+
+  loginPressed = ()=> {
+    Alert.alert("Completed Login!")
+  }
+
   render() {
     return (
       <ImageBackground
@@ -9,11 +17,15 @@ class HomeScreen extends Component {
        style={styles.background}
        >
       <Text style={styles.text}>4PHYSIO</Text>
-      <TouchableOpacity>
-        <Text style={styles.signup}></Text>
+      <TouchableOpacity
+      onPress={this.signupPressed}
+      >
+        <Text style={styles.signup}>Sign Up</Text>
       </TouchableOpacity>
-      <TouchableOpacity>
-        <Text style={styles.login}></Text>
+      <TouchableOpacity
+      onPress={this.loginPressed}
+      >
+        <Text style={styles.login}>Log In</Text>
       </TouchableOpacity>
     </ImageBackground>
     );
