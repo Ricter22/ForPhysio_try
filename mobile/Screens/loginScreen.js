@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
+import { StyleSheet, Text, View, Button, TextInput, TouchableOpacity } from 'react-native';
 
 class LoginScreen extends Component {
   constructor(props) {
@@ -50,43 +50,49 @@ class LoginScreen extends Component {
 
     return (
       <View style={styles.container}>
-        <Text>LOGIN</Text>
+        
+        <Text>Username</Text>
+        <View style={styles.inputView}>
+          <TextInput
+            style={styles.inputText}
+            placeholder="Username"
+            autoCorrect={false}
+            value={this.state.username}
+            onChangeText={(username) => {
+              this.setState({ username });
+            }}
+          />
+        </View>
 
-        <TextInput
-          style={styles.TextInput}
-          placeholder="Username"
-          autoCorrect={false}
-          value={this.state.username}
-          onChangeText={username => {
-            this.setState({ username });
-          }}
-        />
+        <Text>Password</Text>
+        <View style={styles.inputView}>
+          <TextInput
+            style={styles.inputText}
+            placeholder="Password"
+            autoCorrect={false}
+            secureTextEntry={true}
+            value={this.state.password}
+            onChangeText={(password) => {
+              this.setState({ password });
+            }}
+          />
+        </View>
 
-        <TextInput
-          style={styles.TextInput}
-          placeholder="Password"
-          autoCorrect={false}
-          secureTextEntry={true}
-          value={this.state.password}
-          onChangeText={password => {
-            this.setState({ password });
-          }}
-        />
+        <TouchableOpacity
+          style={styles.loginBtn}
+          onPress={() => this.submitLogin()}
+        >
+          <Text>Log in</Text>
+        </TouchableOpacity>
 
-        <Button
-          title="Login"
-          onPress={() =>
-            this.submitLogin()
-          }
-        />
-        {/* this will be the button for the registration page */}
-        <Button
-          title="Go to Registration"
+        <TouchableOpacity
+          style={styles.signupBtn}
           onPress={() => {
-            this.props.navigation.navigate('Registration')
-          }
-          }
-        />
+            this.props.navigation.navigate("Registration");
+          }}
+        >
+          <Text>Go to sign up</Text>
+        </TouchableOpacity>
       </View>
     );
   }
@@ -96,16 +102,51 @@ class LoginScreen extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
   },
-  TextInput: {
-    height: 40,
-    width: 200,
-    borderWidth: 2,
-    padding: 10
-  }
+  logo: {
+    fontWeight: "bold",
+    fontSize: 50,
+    color: "#fb5b5a",
+    marginBottom: 40,
+  },
+  inputView: {
+    width: "80%",
+    backgroundColor: "#90EAFC",
+    borderRadius: 25,
+    height: 50,
+    marginBottom: 15,
+    justifyContent: "center",
+    padding: 20,
+  },
+  inputText: {
+    height: 50,
+    color: "white",
+  },
+  forgot: {
+    color: "black",
+    fontSize: 11,
+  },
+  loginBtn: {
+    width: "40%",
+    backgroundColor: "#33B6F7",
+    borderRadius: 25,
+    height: 50,
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 25,
+    marginBottom: 8,
+  },
+  signupBtn: {
+    width: "40%",
+    backgroundColor: "#59F66E",
+    borderRadius: 25,
+    height: 50,
+    alignItems: "center",
+    justifyContent: "center",
+  },
 });
 
 export default LoginScreen;
