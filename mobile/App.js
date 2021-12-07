@@ -37,11 +37,25 @@ class App extends React.Component {
 
     return (
       <NavigationContainer>
-      <Stack.Navigator>
+      <Stack.Navigator
+      screenOptions={{
+            headerStyle: {
+              backgroundColor: "#90EAFC",
+            },
+            headerTintColor: "#black",
+            headerTitleStyle: {
+              fontWeight: "bold",
+            },
+          }}
+        >>
       <Stack.Screen
-          name="Login"
-          component={LoginScreen}
-        />
+            name="Login"
+            component={LoginScreen}
+            options={{
+              headerTitle: "Log in",
+              //header: (props) => <ImageHeader {...props} />,
+            }}
+          />
         <Stack.Screen
             name="Chat"
             component={HomeTabs}
@@ -50,6 +64,9 @@ class App extends React.Component {
         <Stack.Screen
             name="Registration"
             component={RegistrationScreen}
+            options={{
+              title: "Sign up",
+            }}
           />
         <Stack.Screen
             name="test"
