@@ -5,7 +5,7 @@ class HomeScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text>HOMEPAGE</Text>
+        <Text>HOME</Text>
       </View>
     );
   }
