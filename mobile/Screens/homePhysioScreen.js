@@ -4,15 +4,49 @@ import {UserContext} from '../Components/UserContext'
 
 class HomePhysio extends React.Component {
 
-  render() {
+  constructor(props) {
+    super(props);
+    this.state = {
+     user: '',
+     userList: ''
+    };
+  }
 
+  componentDidMount() {
     let {value, setValue} = this.context;
-    console.log(value);
+    this.setState({ user: value });
+  }
+
+  getUsers(){
+    fetch('http://192.168.178.92:3000/userList', {//192.168.178.92
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      code: this.state.user.code
+    }),
+  }) //here we handle the status response of the server
+    .then(r =>  r.json().then(data => ({status: r.status, body: data})))
+    .then(obj => {
+      
+      if (obj.status == 200) {
+        console.log(obj.body)
+      }
+      
+    });
+  }
+
+  render() {
 
     return (
       <View style={styles.container}>
-        <Text>HELLO PHYSIO</Text>
-        <Text>{value}</Text>
+        <Text>{this.state.user.username}</Text>
+        <Button
+            onPress={()=> this.getUsers()}
+            title="Users fetch"
+            color="#841584"
+        />
       </View>
     );
   }
