@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
 import { io } from "socket.io-client"; //socket.io-client
 import uuid from 'react-native-uuid';
-import { GiftedChat, Bubble } from 'react-native-gifted-chat';
 
 class ChatScreen extends Component {
 
@@ -57,24 +56,8 @@ class ChatScreen extends Component {
             this.setState({ msg });
           }}
         />
-        <Bubble
-        {...props}
-        wrapperStyle={{
-          right: {
-            backgroundColor: '#6646ee'
-          }
-        }}
-        textStyle={{
-          right: {
-            color: '#fff'
-          }
-        }}
-        />
-        <GiftedChat
-          messages={messages}
-          onSend={newMessage => handleSend(newMessage)}
-          renderBubble={renderBubble}
-        />
+        
+        
       </View>
       );
   }
