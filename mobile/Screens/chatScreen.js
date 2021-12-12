@@ -1,14 +1,15 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
-import {io} from "socket.io-client"; //socket.io-client
+import { io } from "socket.io-client"; //socket.io-client
 import uuid from 'react-native-uuid';
+import { GiftedChat, Bubble } from 'react-native-gifted-chat';
 
 class ChatScreen extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      msg : "",
+      msg: "",
       msgList: [],
     };
   }
@@ -23,13 +24,13 @@ class ChatScreen extends Component {
     this.socket = io("http://192.168.178.92:3000", { //192.168.178.92 ric ip
       transports: ['websocket'] //this line is fundamental
     });
-    this.socket.on('msg', msg =>{
-      this.setState({msgList: [...this.state.msgList, msg]})
+    this.socket.on('msg', msg => {
+      this.setState({ msgList: [...this.state.msgList, msg] })
     })
   }
 
-  sendMessage(){
-    
+  sendMessage() {
+
     this.socket.emit("msg", this.state.msg);
     this.setState({ msg: "" });
   }
@@ -39,44 +40,64 @@ class ChatScreen extends Component {
     const msgList = this.state.msgList.map(msg => (
       <Text key={uuid.v4()}>{msg}</Text>
     ));
-
+    
+        
     return (
 
       <View style={styles.container}>
 
         {msgList}
-
         <TextInput
-            style={styles.input}
-            placeholder="Send a message"
-            autoCorrect={false}
-            value={this.state.msg}
-            onSubmitEditing={() => this.sendMessage()}
-            onChangeText={msg => {
+          style={styles.input}
+          placeholder="Send a message"
+          autoCorrect={false}
+          value={this.state.msg}
+          onSubmitEditing={() => this.sendMessage()}
+          onChangeText={msg => {
             this.setState({ msg });
           }}
-          />
+        />
+        <Bubble
+        {...props}
+        wrapperStyle={{
+          right: {
+            backgroundColor: '#6646ee'
+          }
+        }}
+        textStyle={{
+          right: {
+            color: '#fff'
+          }
+        }}
+        />
+        <GiftedChat
+          messages={messages}
+          onSend={newMessage => handleSend(newMessage)}
+          renderBubble={renderBubble}
+        />
       </View>
-    );
+      );
   }
 }
 
 const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: '#fff',
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-    input: {
-      position: 'absolute',
-      left: 0,
-      right: 0,
-      bottom: 0,
-      alignSelf: "stretch", 
-      height:40,
-      borderWidth:1
-    }
-  });
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  
+  input: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    bottom: 0,
+    alignSelf: "stretch",
+    height: 40,
+    borderWidth: 1
+  },
+  
+});
 
 export default ChatScreen;
