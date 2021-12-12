@@ -1,11 +1,15 @@
-import React from 'react';
+import React, {useState, useMemo} from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+
 import LoginScreen from './Screens/loginScreen'
 import ChatScreen from './Screens/chatScreen'
 import RegistrationScreen from './Screens/registrationScreen'
 import HomeScreen from './Screens/homeScreen'
+import HomePhysio from './Screens/homePhysioScreen';
+
+import {UserContext} from './Components/UserContext'
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -22,20 +26,19 @@ function HomeTabs() {
 function PhysioTabs(){
   return (
     <Tab.Navigator>
-      <Tab.Screen name="Home" component={HomeScreen} />
       <Tab.Screen name="Chat" component={ChatScreen} />
+      <Tab.Screen name="Home" component={HomePhysio} />
     </Tab.Navigator>
   );
 }
 
-class App extends React.Component {
+function App()  {
 
-  //In the render here we define the application Screen routes
-  //with navigation, then in the classes we'll use the navigate 
-  //method to move from one page to another    
-  render() {
-
+    const [value, setValue] = useState(null);
+    const user = useMemo(() => ({ value, setValue }), [value, setValue]);
+     
     return (
+      <UserContext.Provider value={user}>
       <NavigationContainer>
       <Stack.Navigator
       screenOptions={{
@@ -72,10 +75,11 @@ class App extends React.Component {
             name="test"
             component={PhysioTabs}
         />
+        
       </Stack.Navigator>
     </NavigationContainer>
+    </UserContext.Provider>
     );
-  }
 }
 
 export default App;

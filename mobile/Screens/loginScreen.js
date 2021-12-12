@@ -1,5 +1,7 @@
-import React, { Component } from 'react';
+import React, { Component, useContext } from 'react';
 import { StyleSheet, Text, View, Button, TextInput, TouchableOpacity } from 'react-native';
+
+import {UserContext} from '../Components/UserContext'
 
 class LoginScreen extends Component {
   constructor(props) {
@@ -11,6 +13,8 @@ class LoginScreen extends Component {
   }
 
   submitLogin() {
+
+    let {value, setValue} = this.context;
 
     //here we're going to post the username and password inserted in the
     //login page, in particulare this is a post request to the /signin route
@@ -28,17 +32,16 @@ class LoginScreen extends Component {
     }) //here we handle the status response of the server
       .then(r =>  r.json().then(data => ({status: r.status, body: data})))
       .then(obj => {
-        console.log(obj.body.result);
+        //console.log(obj.body.result);
         if (obj.status == 200) {
+          setValue(obj.body.result);
           alert('Succesful login')
-          this.props.navigation.navigate('Chat', {
-            screen : 'Chat',
-            params: {user : obj.body.result},
-          })
+          this.props.navigation.navigate('Chat')
         }
         else if (obj.status == 201){
+          setValue(obj.body.result);
           alert('Succesful login')
-          this.props.navigation.navigate('test', {user : obj.body.result})  
+          this.props.navigation.navigate('test')  
         }
         else {
           alert('Unsuccesful login')
@@ -103,6 +106,7 @@ class LoginScreen extends Component {
     );
   }
 }
+LoginScreen.contextType = UserContext;
 
 // ...
 const styles = StyleSheet.create({

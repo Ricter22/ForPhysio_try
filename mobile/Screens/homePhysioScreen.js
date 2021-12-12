@@ -2,32 +2,22 @@ import React, {useContext} from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
 import {UserContext} from '../Components/UserContext'
 
-class HomeScreen extends React.Component {
-
-  constructor(props) {
-    super(props);
-    this.state = {
-     user: ''
-    };
-  }
-
-  componentDidMount() {
-    let {value, setValue} = this.context;
-    this.setState({ user: value });
-  }
+class HomePhysio extends React.Component {
 
   render() {
 
-    
+    let {value, setValue} = this.context;
+    console.log(value);
 
     return (
       <View style={styles.container}>
-        <Text>{this.state.user.username}</Text>
+        <Text>HELLO PHYSIO</Text>
+        <Text>{value}</Text>
       </View>
     );
   }
 }
-HomeScreen.contextType = UserContext;
+HomePhysio.contextType = UserContext;
 // ...
 const styles = StyleSheet.create({
     container: {
@@ -39,4 +29,4 @@ const styles = StyleSheet.create({
   });
 
 
-export default HomeScreen;
+export default HomePhysio;
