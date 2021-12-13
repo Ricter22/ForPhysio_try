@@ -3,11 +3,12 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
-import LoginScreen from './Screens/loginScreen'
-import ChatScreen from './Screens/chatScreen'
-import RegistrationScreen from './Screens/registrationScreen'
-import HomeScreen from './Screens/homeScreen'
+import LoginScreen from './Screens/loginScreen';
+import ChatScreen from './Screens/chatScreen';
+import RegistrationScreen from './Screens/registrationScreen';
+import HomeScreen from './Screens/homeScreen';
 import HomePhysio from './Screens/homePhysioScreen';
+import ExcercisePhysio from 'Screens/excercisePhysioScreen';
 
 import {UserContext} from './Components/UserContext'
 

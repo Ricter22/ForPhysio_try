@@ -1,52 +1,63 @@
-import React, {useContext} from 'react';
-import { StyleSheet, Text, View, Button } from 'react-native';
-import {UserContext} from '../Components/UserContext'
+import React, {useContext, Component} from 'react';
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import {UserContext} from '../Components/UserContext';
+import uuid from 'react-native-uuid';
 
-class HomePhysio extends React.Component {
+class HomePhysio extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
-     user: '',
-     userList: ''
+     username: '',
+     code: '',
+     userList: []
     };
   }
 
   componentDidMount() {
-    let {value, setValue} = this.context;
+    /*let {value, setValue} = this.context;
     this.setState({ user: value });
-  }
+    this.getUsers();*/
 
-  getUsers(){
+    let {value, setValue} = this.context;
+
     fetch('http://192.168.178.92:3000/userList', {//192.168.178.92
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      code: this.state.user.code
+      code: value.code
     }),
   }) //here we handle the status response of the server
     .then(r =>  r.json().then(data => ({status: r.status, body: data})))
     .then(obj => {
       
       if (obj.status == 200) {
-        console.log(obj.body)
+        this.setState({ userList: obj.body });
+        console.log(this.state.userList);
       }
       
     });
+    
   }
 
   render() {
+    
+    const users = this.state.userList.map(user => (
+      <TouchableOpacity 
+      key={uuid.v4()} 
+      onPress={() => console.log(user)}
+      >
+          <Text >{user}</Text>
+        </TouchableOpacity>
+      
+    ));
 
     return (
       <View style={styles.container}>
-        <Text>{this.state.user.username}</Text>
-        <Button
-            onPress={()=> this.getUsers()}
-            title="Users fetch"
-            color="#841584"
-        />
+        <Text>List of your patients:</Text>
+        {users}
       </View>
     );
   }
