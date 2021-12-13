@@ -3,66 +3,62 @@ import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import {UserContext} from '../Components/UserContext';
 import uuid from 'react-native-uuid';
 
-class HomePhysio extends Component {
+class ExercisePhysio extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
-     username: '',
-     code: '',
-     userList: []
-    };
+      patient: this.props.route.params.user,
+      excercisesList: []
+     };
+    
   }
 
   componentDidMount() {
-    /*let {value, setValue} = this.context;
-    this.setState({ user: value });
-    this.getUsers();*/
 
-    let {value, setValue} = this.context;
-
-    fetch('http://192.168.178.92:3000/userList', {//192.168.178.92
+    fetch('http://192.168.178.92:3000/excercises', {//192.168.178.92
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      code: value.code
+      name: this.state.patient
     }),
   }) //here we handle the status response of the server
     .then(r =>  r.json().then(data => ({status: r.status, body: data})))
     .then(obj => {
       
       if (obj.status == 200) {
-        this.setState({ userList: obj.body });
-        console.log(this.state.userList);
+        this.setState({ excercisesList: obj.body });
+        console.log(this.state.excercisesList);
       }
       
     });
-    
   }
 
   render() {
-    
-    const users = this.state.userList.map(user => (
-      <TouchableOpacity 
-      key={uuid.v4()} 
-      onPress={() => this.props.navigation.navigate('Excercise', {user: user})}
-      >
-          <Text >{user}</Text>
-        </TouchableOpacity>
+
+    const excercises = this.state.excercisesList.map(excercise => (
+      <View key={uuid.v4()} >
+          <Text >{excercise.description}</Text>
+          <Text >{excercise.timesPerWeek}</Text>
+        </View>
       
     ));
 
     return (
-      <View style={styles.container}>
-        <Text>List of your patients:</Text>
-        {users}
+      <View>
+        <Text>{this.state.patient}</Text>
+        {excercises}
       </View>
+      
     );
   }
+
+
+
 }
-HomePhysio.contextType = UserContext;
+ExercisePhysio.contextType = UserContext;
 // ...
 const styles = StyleSheet.create({
     container: {
@@ -74,4 +70,4 @@ const styles = StyleSheet.create({
   });
 
 
-export default HomePhysio;
+export default ExercisePhysio;

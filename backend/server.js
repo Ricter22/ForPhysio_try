@@ -16,7 +16,8 @@ mongoose.connect('mongodb+srv://ric:mobilecomputing2122@cluster0.finip.mongodb.n
     })
 
 const authRoutes = require('./routes/authRoutes');
-const userRoutes = require('./routes/userRoutes')
+const userRoutes = require('./routes/userRoutes');
+const excerciseRoutes = require('./routes/excerciseRoutes');
 
 const app = express();
 const server = http.createServer(app);
@@ -27,6 +28,7 @@ app.use(express.urlencoded({extended : true}));
 app.use(express.json());
 app.use(authRoutes);
 app.use(userRoutes);
+app.use(excerciseRoutes);
 
 io.on('connection', socket =>{
     console.log('user connected');

@@ -32,19 +32,19 @@ class LoginScreen extends Component {
     }) //here we handle the status response of the server
       .then(r =>  r.json().then(data => ({status: r.status, body: data})))
       .then(obj => {
-        //console.log(obj.body.result);
+        //console.log(obj.status);
         if (obj.status == 200) {
           setValue(obj.body.result);
-          alert('Succesful login')
-          this.props.navigation.navigate('Chat')
+          alert('Succesful login');
+          this.props.navigation.navigate('Chat');
         }
         else if (obj.status == 201){
           setValue(obj.body.result);
-          alert('Succesful login')
-          this.props.navigation.navigate('test')  
+          alert('Succesful login');
+          this.props.navigation.navigate('test');
         }
-        else {
-          alert('Unsuccesful login')
+        else if(obj.status == 422){
+          alert('Unsuccesful login');
         }
       });
       

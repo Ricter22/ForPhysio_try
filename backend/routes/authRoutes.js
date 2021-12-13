@@ -65,7 +65,7 @@ router.post('/signin', (req, res)=>{
         if(err){ console.log("Error with the database");};
 
         if(result==null){
-            return res.status(422).send('Invalid username or password');
+            return res.status(422).send({error :"Username or password incorrect"});
         }
         else{
             result.comparePassword(password, function(err, isMatch) {
@@ -79,7 +79,7 @@ router.post('/signin', (req, res)=>{
                         res.status(200).send(JSON.stringify({result})); //client
                     }
                 }else{
-                    return res.status(422).send('Invalid username or password');
+                    return res.status(422).send({error :"Username or password incorrect"});
                 }
             });
         }
