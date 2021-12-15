@@ -9,6 +9,7 @@ import RegistrationScreen from './Screens/registrationScreen';
 import HomeScreen from './Screens/homeScreen';
 import HomePhysio from './Screens/homePhysioScreen';
 import ExercisePhysio from './Screens/exercisePhysioScreen';
+import AddExerciseScreen from './Screens/addExerciseScreen';
 
 import {UserContext} from './Components/UserContext'
 
@@ -28,7 +29,8 @@ function ExcerciseScreens(){
   return(
     <Stack.Navigator>
       <Stack.Screen name="HomePhysio" component={HomePhysio} options={{ headerShown: false }}/>
-      <Tab.Screen name="Excercise" component={ExercisePhysio} options={{ headerShown: false }}/>
+      <Stack.Screen name="Excercise" component={ExercisePhysio} options={{ headerShown: false }}/>
+      <Stack.Screen name="AddExercise" component={AddExerciseScreen} options={{ headerShown: false }}/>
     </Stack.Navigator>
   )
 }

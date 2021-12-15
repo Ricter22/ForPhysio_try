@@ -16,7 +16,7 @@ class ExercisePhysio extends Component {
 
   componentDidMount() {
 
-    fetch('http://192.168.178.92:3000/excercises', {//192.168.178.92
+    fetch('http://192.168.194.145:3000/excercises', {//192.168.178.92
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -50,7 +50,15 @@ class ExercisePhysio extends Component {
       <View>
         <Text>{this.state.patient}</Text>
         {excercises}
+
+        <TouchableOpacity
+          onPress={() => this.props.navigation.navigate('AddExercise', {user:this.state.patient})}
+        >
+          <Text>Add Exercise</Text>
+        </TouchableOpacity>
       </View>
+
+
       
     );
   }
