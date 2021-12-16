@@ -21,7 +21,7 @@ class HomePhysio extends Component {
 
     let {value, setValue} = this.context;
 
-    fetch('http://192.168.194.145:3000/userList', {//192.168.178.92
+    fetch('http://192.168.178.92:3000/userList', {//192.168.178.92
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

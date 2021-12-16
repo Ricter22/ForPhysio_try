@@ -16,7 +16,7 @@ class RegistrationScreen extends Component {
 
         //here we post the credentials to the signup route in the server
         //and we wait for the response
-        fetch('http://192.168.194.145:3000/signup', {
+        fetch('http://192.168.178.92:3000/signup', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

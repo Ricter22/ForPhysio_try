@@ -16,7 +16,7 @@ class ExercisePhysio extends Component {
 
   componentDidMount() {
 
-    fetch('http://192.168.194.145:3000/excercises', {//192.168.178.92
+    fetch('http://192.168.178.92:3000/excercises', {//192.168.178.92
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
