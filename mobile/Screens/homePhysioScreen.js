@@ -1,5 +1,5 @@
 import React, {useContext, Component} from 'react';
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, ScrollView, RefreshControl } from 'react-native';
 import {UserContext} from '../Components/UserContext';
 import uuid from 'react-native-uuid';
 
@@ -10,15 +10,12 @@ class HomePhysio extends Component {
     this.state = {
      username: '',
      code: '',
-     userList: []
+     userList: [],
+     refreshing: false
     };
   }
 
-  componentDidMount() {
-    /*let {value, setValue} = this.context;
-    this.setState({ user: value });
-    this.getUsers();*/
-
+  getPatients(){
     let {value, setValue} = this.context;
 
     fetch('http://192.168.178.92:3000/userList', {//192.168.178.92
@@ -39,7 +36,16 @@ class HomePhysio extends Component {
       }
       
     });
-    
+  }
+
+  onRefresh(){
+    this.setState({refreshing: true})
+    this.getPatients();
+    this.setState({refreshing: false})
+  }
+
+  componentDidMount() {
+    this.getPatients();
   }
 
   render() {
@@ -56,8 +62,17 @@ class HomePhysio extends Component {
 
     return (
       <View style={styles.container}>
-        <Text>List of your patients:</Text>
-        {users}
+        <ScrollView
+          refreshControl={
+            <RefreshControl 
+            refreshing = {this.state.refreshing}
+            onRefresh = {this.onRefresh.bind(this)}
+            />
+          }
+        >
+          <Text>List of your patients:</Text>
+          {users}
+        </ScrollView>
       </View>
     );
   }

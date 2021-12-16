@@ -1,5 +1,5 @@
 import React, {useContext, Component} from 'react';
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, ScrollView, RefreshControl } from 'react-native';
 import {UserContext} from '../Components/UserContext';
 import uuid from 'react-native-uuid';
 
@@ -9,13 +9,13 @@ class ExercisePhysio extends Component {
     super(props);
     this.state = {
       patient: this.props.route.params.user,
-      excercisesList: []
+      excercisesList: [],
+      refreshing: false
      };
     
   }
 
-  componentDidMount() {
-
+  getExercises(){
     fetch('http://192.168.178.92:3000/excercises', {//192.168.178.92
     method: 'POST',
     headers: {
@@ -36,6 +36,17 @@ class ExercisePhysio extends Component {
     });
   }
 
+  onRefresh(){
+    this.setState({refreshing: true});
+    this.getExercises();
+    this.setState({refreshing: false});
+
+  }
+
+  componentDidMount() {
+    this.getExercises();
+  }
+
   render() {
 
     const excercises = this.state.excercisesList.map(excercise => (
@@ -48,14 +59,23 @@ class ExercisePhysio extends Component {
 
     return (
       <View>
-        <Text>{this.state.patient}</Text>
-        {excercises}
-
-        <TouchableOpacity
-          onPress={() => this.props.navigation.navigate('AddExercise', {user:this.state.patient})}
+        <ScrollView
+          refreshControl={
+            <RefreshControl 
+            refreshing = {this.state.refreshing}
+            onRefresh = {this.onRefresh.bind(this)}
+            />
+          }
         >
-          <Text>Add Exercise</Text>
-        </TouchableOpacity>
+          <Text>{this.state.patient}</Text>
+          {excercises}
+
+          <TouchableOpacity
+            onPress={() => this.props.navigation.navigate('AddExercise', {user:this.state.patient})}
+          >
+            <Text>Add Exercise</Text>
+          </TouchableOpacity>
+        </ScrollView>
       </View>
 
 
