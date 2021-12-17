@@ -16,6 +16,7 @@ import {UserContext} from './Components/UserContext'
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
+//tab navigator for the client
 function HomeTabs() {
   return (
     <Tab.Navigator>
@@ -25,6 +26,7 @@ function HomeTabs() {
   );
 }
 
+//stack navigator for exercises for the physio
 function ExcerciseScreens(){
   return(
     <Stack.Navigator>
@@ -35,6 +37,7 @@ function ExcerciseScreens(){
   )
 }
 
+//tab navigator for the physio
 function PhysioTabs(){
   return (
     <Tab.Navigator>
