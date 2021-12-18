@@ -36,6 +36,33 @@ class ExercisePhysio extends Component {
     });
   }
 
+  deleteExercise(description){
+    fetch('http://192.168.178.92:3000/deleteExercise', {//192.168.178.92
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      name: this.state.patient,
+      description: description
+    }),
+  }) //here we handle the status response of the server
+    .then(r =>  r.json().then(data => ({status: r.status, body: data})))
+    .then(obj => {
+      
+      if (obj.status == 200) {
+        console.log('Successful');
+        this.getExercises();
+      }
+      
+    });
+  }
+
+  updateExercise(description){
+    this.deleteExercise(description);
+    this.props.navigation.navigate('AddExercise', {user:this.state.patient});
+  }
+
   onRefresh(){
     this.setState({refreshing: true});
     this.getExercises();
@@ -53,6 +80,12 @@ class ExercisePhysio extends Component {
       <View key={uuid.v4()} >
           <Text >{excercise.description}</Text>
           <Text >{excercise.timesPerWeek}</Text>
+          <TouchableOpacity onPress={()=>{this.deleteExercise(excercise.description)}}>
+            <Text>Delete</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={()=>{this.updateExercise(excercise.description)}}>
+            <Text>Update</Text>
+          </TouchableOpacity>
         </View>
       
     ));
