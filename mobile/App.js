@@ -10,6 +10,7 @@ import HomeScreen from './Screens/homeScreen';
 import HomePhysio from './Screens/homePhysioScreen';
 import ExercisePhysio from './Screens/exercisePhysioScreen';
 import AddExerciseScreen from './Screens/addExerciseScreen';
+import CoverScreen from './Screens/appScreen';
 
 import {UserContext} from './Components/UserContext'
 
