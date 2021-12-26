@@ -21,7 +21,7 @@ class appScreen extends Component {
       onPress={() => {
         this.props.navigation.navigate("Registration");
       }}
-      //{this.signupPressed}
+ 
       >
         <Text style={styles.signup}>Sign Up</Text>
       </TouchableOpacity>
@@ -29,7 +29,7 @@ class appScreen extends Component {
       onPress={() => {
         this.props.navigation.navigate("Login");
       }}
-      //{this.loginPressed}
+    
       >
         <Text style={styles.login}>Log In</Text>
       </TouchableOpacity>
