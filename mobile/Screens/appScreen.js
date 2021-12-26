@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { StyleSheet, Text, View, Button, TextInput,ImageBackground,TouchableOpacity } from "react-native";
 
-class HomeScreen extends Component {
+class AppScreen extends Component {
   signupPressed = ()=>{
     Alert.alert("Completed Sign Up")
   }
@@ -73,4 +73,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default HomeScreen;
+export default AppScreen;
