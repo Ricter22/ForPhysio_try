@@ -1,15 +1,15 @@
 import React, { Component } from "react";
 import { StyleSheet, Text, View, Button, TextInput,ImageBackground,TouchableOpacity } from "react-native";
 
-class AppScreen extends Component {
-  signupPressed = ()=>{
-    Alert.alert("Completed Sign Up")
-  }
+class appScreen extends Component {
 
-  loginPressed = ()=> {
-    Alert.alert("Completed Login!")
+  constructor(props) {
+    super(props);
+    this.state = {
+      
+    };
   }
-
+ 
   render() {
     return (
       <ImageBackground
@@ -18,12 +18,18 @@ class AppScreen extends Component {
        >
       <Text style={styles.text}>4PHYSIO</Text>
       <TouchableOpacity
-      onPress={this.signupPressed}
+      onPress={() => {
+        this.props.navigation.navigate("Registration");
+      }}
+      //{this.signupPressed}
       >
         <Text style={styles.signup}>Sign Up</Text>
       </TouchableOpacity>
       <TouchableOpacity
-      onPress={this.loginPressed}
+      onPress={() => {
+        this.props.navigation.navigate("Login");
+      }}
+      //{this.loginPressed}
       >
         <Text style={styles.login}>Log In</Text>
       </TouchableOpacity>
@@ -73,4 +79,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default AppScreen;
+export default appScreen;
