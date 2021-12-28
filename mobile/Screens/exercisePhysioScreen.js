@@ -23,7 +23,7 @@ class ExercisePhysio extends Component {
   }
 
   getExercises() {
-    fetch("http://192.168.178.92:3000/excercises", {
+    fetch("http://192.168.1.91:3000/excercises", {
       //192.168.178.92
       method: "POST",
       headers: {

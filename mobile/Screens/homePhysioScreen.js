@@ -26,7 +26,7 @@ class HomePhysio extends Component {
   getPatients() {
     let { value, setValue } = this.context;
 
-    fetch("http://192.168.178.92:3000/userList", {
+    fetch("http://192.168.1.91:3000/userList", {
       //192.168.178.92
       method: "POST",
       headers: {
