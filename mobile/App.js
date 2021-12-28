@@ -10,6 +10,7 @@ import HomeScreen from './Screens/homeScreen';
 import HomePhysio from './Screens/homePhysioScreen';
 import ExercisePhysio from './Screens/exercisePhysioScreen';
 import AddExerciseScreen from './Screens/addExerciseScreen';
+import AppScreen from './Screens/appScreen';
 
 import {UserContext} from './Components/UserContext'
 
@@ -22,6 +23,7 @@ function HomeTabs() {
     <Tab.Navigator>
       <Tab.Screen name="Chat" component={ChatScreen} />
       <Tab.Screen name="Home" component={HomeScreen} />
+      
     </Tab.Navigator>
   );
 }
@@ -43,6 +45,7 @@ function PhysioTabs(){
     <Tab.Navigator>
       <Tab.Screen name="Chat" component={ChatScreen} />
       <Tab.Screen name="Home" component={ExcerciseScreens} />
+      
     </Tab.Navigator>
   );
 }
@@ -67,6 +70,10 @@ function App()  {
           }}
         >
       <Stack.Screen
+            name="Cover"
+            component={AppScreen}
+          />
+      <Stack.Screen
             name="Login"
             component={LoginScreen}
             options={{
@@ -79,6 +86,7 @@ function App()  {
             component={HomeTabs}
             options={{ headerShown: false }}
           />
+        
         <Stack.Screen
             name="Registration"
             component={RegistrationScreen}
@@ -98,3 +106,4 @@ function App()  {
 }
 
 export default App;
+
