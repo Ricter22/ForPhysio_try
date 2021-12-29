@@ -62,7 +62,7 @@ class ChatScreen extends Component {
         />
         <TouchableOpacity
           style={{
-            top: -300,
+            top: 250,
             left: 140,
           }}
           onPress={() =>
