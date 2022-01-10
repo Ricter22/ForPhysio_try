@@ -1,8 +1,9 @@
-import React, { Component } from "react";
+import React, { Component, useState, useEffect } from "react";
 import {
   StyleSheet,
   Text,
   View,
+  ImageBackground,
   Button,
   TextInput,
   TouchableOpacity,
@@ -24,11 +25,11 @@ class ChatScreen extends Component {
   componentDidMount() {
     //Now we have the informations about the user
     //so we can display for example the name in
-    //themessages
+    //the messages
     //const {user} = this.props.route.params;
     //alert(user.username);
 
-    this.socket = io("http://192.168.1.91:3000", {
+    this.socket = io("http://192.168.1.37:3000", {
       //192.168.178.92 ric ip
       transports: ["websocket"], //this line is fundamental
     });
@@ -43,43 +44,37 @@ class ChatScreen extends Component {
   }
 
   render() {
+    var date = new Date().getDate();
+    var month = new Date().getMonth() + 1;
+    var year = new Date().getFullYear();
+    var hour = new Date().getHours();
+    var minutes = new Date().getMinutes();
     const msgList = this.state.msgList.map((msg) => (
-      <Text key={uuid.v4()}>{msg}</Text>
+      <View style={styles.box}>
+        <Text style={styles.message} key={uuid.v4()}>
+          {msg}
+        </Text>
+        <Text style={{ fontStyle: "italic" }}>
+          {date}/{month}/{year} {hour}:{minutes}
+        </Text>
+      </View>
     ));
 
     return (
       <View style={styles.container}>
         {msgList}
-        <TextInput
-          style={styles.input}
-          placeholder="Send a message"
-          autoCorrect={false}
-          value={this.state.msg}
-          onSubmitEditing={() => this.sendMessage()}
-          onChangeText={(msg) => {
-            this.setState({ msg });
-          }}
-        />
-        <TouchableOpacity
-          style={{
-            top: 250,
-            left: 140,
-          }}
-          onPress={() =>
-            Alert.alert("Exit", "Do you want to sign out?", [
-              {
-                text: "Yes",
-                onPress: () => this.props.navigation.navigate("Login"),
-              },
-              { text: "No" },
-            ])
-          }
-        >
-          <Image
-            style={{ width: 75, height: 75 }}
-            source={require("mobile/images/lightlogo_preview_rev_1.png")}
+        <View style={styles.inputView}>
+          <TextInput
+            style={styles.input}
+            placeholder="Send a message"
+            autoCorrect={false}
+            value={this.state.msg}
+            onSubmitEditing={() => this.sendMessage()}
+            onChangeText={(msg) => {
+              this.setState({ msg });
+            }}
           />
-        </TouchableOpacity>
+        </View>
       </View>
     );
   }
@@ -89,18 +84,33 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
   },
-
-  input: {
-    position: "absolute",
-    left: 0,
-    right: 0,
-    bottom: 0,
-    alignSelf: "stretch",
-    height: 40,
+  box: {
+    backgroundColor: "pink",
+    padding: 10,
     borderWidth: 1,
+    margin: 2,
+  },
+  message: {
+    fontSize: 15,
+  },
+  box2: {
+    backgroundColor: "blue",
+    padding: 10,
+  },
+  inputView: {
+    width: "100%",
+    backgroundColor: "#90EAFC",
+    borderRadius: 15,
+    height: 50,
+    bottom: 0,
+    position: "absolute",
+    padding: 15,
+    borderWidth: 1,
+  },
+  inputText: {
+    height: 50,
+    color: "white",
   },
 });
 

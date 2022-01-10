@@ -1,66 +1,74 @@
-import React, { Component, useContext } from 'react';
-import { StyleSheet, Text, View, Button, TextInput, TouchableOpacity } from 'react-native';
+import React, { Component, useContext } from "react";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  Button,
+  TextInput,
+  TouchableOpacity,
+} from "react-native";
 
-import {UserContext} from '../Components/UserContext'
+import { UserContext } from "../Components/UserContext";
 
 class LoginScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
       username: "",
-      password: ""
+      password: "",
     };
   }
 
   submitLogin() {
-
-    let {value, setValue} = this.context;
+    let { value, setValue } = this.context;
 
     //here we're going to post the username and password inserted in the
     //login page, in particulare this is a post request to the /signin route
-    //in the server that will response with status:200 if the credentials are in the 
+    //in the server that will response with status:200 if the credentials are in the
     //database and with status:422 if not
-    fetch('http://192.168.1.91:3000/signin', {//192.168.178.92
-      method: 'POST',
+    fetch("http://192.168.1.37:3000/signin", {
+      //192.168.178.92
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         username: this.state.username,
-        password: this.state.password
+        password: this.state.password,
       }),
     }) //here we handle the status response of the server
-      .then(r =>  r.json().then(data => ({status: r.status, body: data})))
-      .then(obj => {
+      .then((r) => r.json().then((data) => ({ status: r.status, body: data })))
+      .then((obj) => {
         //console.log(obj.status);
         if (obj.status == 200) {
           setValue(obj.body.result);
-          alert('Succesful login');
-          this.props.navigation.navigate('Chat');
-        }
-        else if (obj.status == 201){
+          alert("Succesful login");
+          this.props.navigation.navigate("Chat");
+        } else if (obj.status == 201) {
           setValue(obj.body.result);
-          alert('Succesful login');
-          this.props.navigation.navigate('test');
-        }
-        else if(obj.status == 422){
-          alert('Unsuccesful login');
+          alert("Succesful login");
+          this.props.navigation.navigate("Physio");
+        } else if (obj.status == 422) {
+          alert("Unsuccesful login");
         }
       });
-      
+
     //here we set again username and password as blank
-    //probably in the future we'll need to send the credentials to the home page 
+    //probably in the future we'll need to send the credentials to the home page
     //to create the user for the socket.io chat
     this.setState({ username: "" });
     this.setState({ password: "" });
   }
 
   render() {
-
     return (
       <View style={styles.container}>
-        
-        <Text>Username</Text>
+        <Image
+          style={{ width: 75, height: 75 }}
+          source={require("mobile/images/lightlogo_preview_rev_1.png")}
+        />
+        <Text style={{ marginTop: 30 }}>Username</Text>
         <View style={styles.inputView}>
           <TextInput
             style={styles.inputText}
@@ -116,12 +124,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  logo: {
-    fontWeight: "bold",
-    fontSize: 50,
-    color: "#fb5b5a",
-    marginBottom: 40,
-  },
   inputView: {
     width: "80%",
     backgroundColor: "#90EAFC",
@@ -130,10 +132,11 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     justifyContent: "center",
     padding: 20,
+    marginTop: 5,
+    //borderWidth: 1,
   },
   inputText: {
     height: 50,
-    color: "white",
   },
   forgot: {
     color: "black",
