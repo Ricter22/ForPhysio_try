@@ -86,7 +86,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
   },
   box: {
-    backgroundColor: "pink",
+    backgroundColor: "#90EAFC",
     padding: 10,
     borderWidth: 1,
     margin: 2,
