@@ -27,7 +27,7 @@ class HomeScreen extends React.Component {
     let { value, setValue } = this.context;
     this.setState({ user: value.username });
 
-    fetch("http://192.168.1.91:3000/excercises", {
+    fetch("http://192.168.178.92:3000/excercises", {
       //192.168.178.92
       method: "POST",
       headers: {

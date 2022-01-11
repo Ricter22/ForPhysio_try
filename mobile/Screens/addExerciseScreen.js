@@ -15,7 +15,7 @@ class AddExerciseScreen extends Component {
 
   submitExercise() {
 
-    fetch('http://192.168.1.91:3000/addExcercise', {//192.168.178.92
+    fetch('http://192.168.178.92:3000/addExcercise', {//192.168.178.92
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
