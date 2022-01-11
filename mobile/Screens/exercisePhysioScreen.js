@@ -132,10 +132,13 @@ class ExercisePhysio extends Component {
               })
             }
           >
-            <Image
-              style={{ width: 25, height: 25, marginTop: 5 }}
-              source={require("mobile/images/add.png")}
-            />
+            <View style={styles.rowContainer}>
+              <Image
+                style={{ width: 35, height: 35, marginTop: 5 }}
+                source={require("mobile/images/add.png")}
+              />
+              <Text style={styles.addExercise}>Add an exercise</Text>
+            </View>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.backImage}
@@ -170,11 +173,17 @@ const styles = StyleSheet.create({
     padding: 15,
     flexDirection: "column",
   },
+  addExercise: {
+    alignSelf: "center",
+    paddingLeft: 5,
+    fontWeight: "bold",
+    fontSize: 15,
+  },
   exercise: {
     borderWidth: 1,
     textAlign: "center",
     borderRadius: 10,
-    backgroundColor: "pink",
+    backgroundColor: "#90EAFC",
     padding: 10,
     margin: 2,
   },
@@ -186,6 +195,7 @@ const styles = StyleSheet.create({
     color: "dodgerblue",
     fontSize: 20,
     marginBottom: 5,
+    paddingLeft: 5,
   },
   backImage: {
     alignItems: "flex-end",
@@ -193,3 +203,4 @@ const styles = StyleSheet.create({
 });
 
 export default ExercisePhysio;
+
