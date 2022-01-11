@@ -118,6 +118,7 @@ const styles = StyleSheet.create({
   patientText: {
     fontWeight: "bold",
     fontSize: 20,
+    paddingLeft: 5,
   },
   userText: {
     fontSize: 15,
@@ -138,3 +139,4 @@ const styles = StyleSheet.create({
 });
 
 export default HomePhysio;
+
