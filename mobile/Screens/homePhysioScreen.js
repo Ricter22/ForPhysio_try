@@ -57,14 +57,20 @@ class HomePhysio extends Component {
 
   render() {
     const users = this.state.userList.map((user) => (
-      <TouchableOpacity
-        key={uuid.v4()}
-        onPress={() =>
-          this.props.navigation.navigate("Excercise", { user: user })
-        }
-      >
-        <Text>{user}</Text>
-      </TouchableOpacity>
+      <View style={styles.patient}>
+        <TouchableOpacity
+          key={uuid.v4()}
+          onPress={() =>
+            this.props.navigation.navigate("Excercise", { user: user })
+          }
+        >
+          <Text style={styles.userText}>{user}</Text>
+          <Image
+            style={{ width: 25, height: 25, marginBottom: 5 }}
+            source={require("mobile/images/profile.png")}
+          />
+        </TouchableOpacity>
+      </View>
     ));
 
     return (
@@ -77,29 +83,26 @@ class HomePhysio extends Component {
             />
           }
         >
-          <Text>List of your patients:</Text>
+          <Text style={styles.patientText}>List of your patients:</Text>
           {users}
+          <TouchableOpacity
+            style={styles.backImage}
+            onPress={() =>
+              Alert.alert("Exit", "Do you want to sign out?", [
+                {
+                  text: "Yes",
+                  onPress: () => this.props.navigation.navigate("Login"),
+                },
+                { text: "No" },
+              ])
+            }
+          >
+            <Image
+              style={{ width: 75, height: 75 }}
+              source={require("mobile/images/lightlogo_preview_rev_1.png")}
+            />
+          </TouchableOpacity>
         </ScrollView>
-        <TouchableOpacity
-          style={{
-            top: -15,
-            left: 140,
-          }}
-          onPress={() =>
-            Alert.alert("Exit", "Do you want to sign out?", [
-              {
-                text: "Yes",
-                onPress: () => this.props.navigation.navigate("Login"),
-              },
-              { text: "No" },
-            ])
-          }
-        >
-          <Image
-            style={{ width: 75, height: 75 }}
-            source={require("mobile/images/lightlogo_preview_rev_1.png")}
-          />
-        </TouchableOpacity>
       </View>
     );
   }
@@ -110,8 +113,28 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
+    padding: 10,
+  },
+  patientText: {
+    fontWeight: "bold",
+    fontSize: 20,
+    paddingLeft: 5,
+  },
+  userText: {
+    fontSize: 15,
+    color: "black",
+    fontStyle: "italic",
+  },
+  backImage: {
+    alignItems: "flex-end",
+  },
+  patient: {
+    borderWidth: 1,
+    textAlign: "center",
+    borderRadius: 10,
+    backgroundColor: "#90EAFC",
+    padding: 10,
+    margin: 2,
   },
 });
 

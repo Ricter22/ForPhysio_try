@@ -58,8 +58,12 @@ class HomeScreen extends React.Component {
 
   render() {
     const excercises = this.state.exercisesList.map((excercise) => (
-      <View key={uuid.v4()}>
+      <View key={uuid.v4()} style={styles.exercise}>
+        <Text style={styles.description_tpw}>Description: </Text>
         <Text>{excercise.description}</Text>
+        <Text style={styles.description_tpw}>
+          Times per week to be performed:
+        </Text>
         <Text>{excercise.timesPerWeek}</Text>
       </View>
     ));
@@ -74,29 +78,29 @@ class HomeScreen extends React.Component {
             />
           }
         >
-          <Text>{this.state.user}</Text>
+          <Text style={styles.patientText}>{this.state.user}</Text>
+          <Text style={{ fontSize: 15, paddingLeft: 5 }}>
+            Your exercises for this week are:
+          </Text>
           {excercises}
+          <TouchableOpacity
+            style={styles.backImage}
+            onPress={() =>
+              Alert.alert("Exit", "Do you want to sign out?", [
+                {
+                  text: "Yes",
+                  onPress: () => this.props.navigation.navigate("Login"),
+                },
+                { text: "No" },
+              ])
+            }
+          >
+            <Image
+              style={{ width: 75, height: 75 }}
+              source={require("mobile/images/lightlogo_preview_rev_1.png")}
+            />
+          </TouchableOpacity>
         </ScrollView>
-        <TouchableOpacity
-          style={{
-            top: -15,
-            left: 140,
-          }}
-          onPress={() =>
-            Alert.alert("Exit", "Do you want to sign out?", [
-              {
-                text: "Yes",
-                onPress: () => this.props.navigation.navigate("Login"),
-              },
-              { text: "No" },
-            ])
-          }
-        >
-          <Image
-            style={{ width: 75, height: 75 }}
-            source={require("mobile/images/lightlogo_preview_rev_1.png")}
-          />
-        </TouchableOpacity>
       </View>
     );
   }
@@ -105,12 +109,31 @@ HomeScreen.contextType = UserContext;
 // ...
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
+    flex: 1,
+    padding: 15,
+    flexDirection: "column",
+  },
+  exercise: {
+    borderWidth: 1,
+    textAlign: "center",
+    borderRadius: 10,
+    backgroundColor: "#90EAFC",
+    padding: 10,
+    margin: 2,
+  },
+  backImage: {
+    alignItems: "flex-end",
+  },
+  patientText: {
+    fontWeight: "bold",
+    color: "dodgerblue",
+    fontSize: 20,
+    paddingLeft: 5,
+  },
+  description_tpw: {
+    fontWeight: "bold",
   },
 });
 
 export default HomeScreen;
-

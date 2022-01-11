@@ -1,4 +1,4 @@
-import React, { useContext, Component } from "react";
+import React, { useContext, useState, Component } from "react";
 import {
   StyleSheet,
   Text,
@@ -43,7 +43,7 @@ class ExercisePhysio extends Component {
   }
 
   deleteExercise(description) {
-    fetch("http://192.168.178.92:3000/deleteExercise", {
+    fetch("http://192.168.1.37:3000/deleteExercise", {
       //192.168.178.92
       method: "POST",
       headers: {
@@ -80,28 +80,40 @@ class ExercisePhysio extends Component {
 
   render() {
     const excercises = this.state.excercisesList.map((excercise) => (
-      <View key={uuid.v4()}>
+      <View style={styles.exercise} key={uuid.v4()}>
+        <Text style={{ fontWeight: "bold" }}>Description of the exercise:</Text>
         <Text>{excercise.description}</Text>
+        <Text style={{ fontWeight: "bold" }}>
+          Times per week to be performed:
+        </Text>
         <Text>{excercise.timesPerWeek}</Text>
-        <TouchableOpacity
-          onPress={() => {
-            this.deleteExercise(excercise.description);
-          }}
-        >
-          <Text>Delete</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => {
-            this.updateExercise(excercise.description);
-          }}
-        >
-          <Text>Update</Text>
-        </TouchableOpacity>
+        <View style={styles.rowContainer}>
+          <TouchableOpacity
+            onPress={() => {
+              this.deleteExercise(excercise.description);
+            }}
+          >
+            <Image
+              style={{ width: 25, height: 25 }}
+              source={require("mobile/images/delete.png")}
+            />
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              this.updateExercise(excercise.description);
+            }}
+          >
+            <Image
+              style={{ width: 25, height: 25 }}
+              source={require("mobile/images/update.png")}
+            />
+          </TouchableOpacity>
+        </View>
       </View>
     ));
 
     return (
-      <View>
+      <View style={styles.container}>
         <ScrollView
           refreshControl={
             <RefreshControl
@@ -110,8 +122,8 @@ class ExercisePhysio extends Component {
             />
           }
         >
-          <Text>{this.state.patient}</Text>
-          {excercises}
+          <Text style={styles.patientText}>{this.state.patient}</Text>
+          <View>{excercises}</View>
 
           <TouchableOpacity
             onPress={() =>
@@ -120,13 +132,16 @@ class ExercisePhysio extends Component {
               })
             }
           >
-            <Text>Add Exercise</Text>
+            <View style={styles.rowContainer}>
+              <Image
+                style={{ width: 35, height: 35, marginTop: 5 }}
+                source={require("mobile/images/add.png")}
+              />
+              <Text style={styles.addExercise}>Add an exercise</Text>
+            </View>
           </TouchableOpacity>
           <TouchableOpacity
-            style={{
-              top: 0,
-              left: 300,
-            }}
+            style={styles.backImage}
             onPress={() =>
               Alert.alert("Exit", "Do you want to sign out?", [
                 {
@@ -147,15 +162,45 @@ class ExercisePhysio extends Component {
     );
   }
 }
+
 ExercisePhysio.contextType = UserContext;
+
 // ...
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
+    flex: 1,
+    padding: 15,
+    flexDirection: "column",
+  },
+  addExercise: {
+    alignSelf: "center",
+    paddingLeft: 5,
+    fontWeight: "bold",
+    fontSize: 15,
+  },
+  exercise: {
+    borderWidth: 1,
+    textAlign: "center",
+    borderRadius: 10,
+    backgroundColor: "#90EAFC",
+    padding: 10,
+    margin: 2,
+  },
+  rowContainer: {
+    flexDirection: "row",
+  },
+  patientText: {
+    fontWeight: "bold",
+    color: "dodgerblue",
+    fontSize: 20,
+    marginBottom: 5,
+    paddingLeft: 5,
+  },
+  backImage: {
+    alignItems: "flex-end",
   },
 });
 
 export default ExercisePhysio;
+
