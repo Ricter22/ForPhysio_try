@@ -43,11 +43,11 @@ class LoginScreen extends Component {
         //console.log(obj.status);
         if (obj.status == 200) {
           setValue(obj.body.result);
-          alert("Succesful login");
+          //alert("Succesful login");
           this.props.navigation.navigate("Chat");
         } else if (obj.status == 201) {
           setValue(obj.body.result);
-          alert("Succesful login");
+          //alert("Succesful login");
           this.props.navigation.navigate("Physio");
         } else if (obj.status == 422) {
           alert("Unsuccesful login");
