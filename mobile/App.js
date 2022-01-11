@@ -2,6 +2,7 @@ import React, { useState, useMemo } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { MaterialIcons } from "@expo/vector-icons";
 
 import LoginScreen from "./Screens/loginScreen";
 import ChatScreen from "./Screens/chatScreen";
@@ -21,8 +22,24 @@ const Tab = createBottomTabNavigator();
 function HomeTabs() {
   return (
     <Tab.Navigator>
-      <Tab.Screen name="Chat with your physio!" component={ChatScreen} />
-      <Tab.Screen name="Exercises" component={HomeScreen} />
+      <Tab.Screen
+        name="Chat with your physio!"
+        component={ChatScreen}
+        options={{
+          tabBarIcon: ({ focused, color, size }) => (
+            <MaterialIcons name="send" size={size} color={color} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Exercises"
+        component={HomeScreen}
+        options={{
+          tabBarIcon: ({ focused, color, size }) => (
+            <MaterialIcons name="assignment" size={size} color={color} />
+          ),
+        }}
+      />
     </Tab.Navigator>
   );
 }
@@ -54,8 +71,24 @@ function ExcerciseScreens() {
 function PhysioTabs() {
   return (
     <Tab.Navigator>
-      <Tab.Screen name="Chat with your patients!" component={ChatScreen} />
-      <Tab.Screen name="Patients" component={ExcerciseScreens} />
+      <Tab.Screen
+        name="Chat with your patients!"
+        component={ChatScreen}
+        options={{
+          tabBarIcon: ({ focused, color, size }) => (
+            <MaterialIcons name="send" size={size} color={color} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Patients"
+        component={ExcerciseScreens}
+        options={{
+          tabBarIcon: ({ focused, color, size }) => (
+            <MaterialIcons name="assignment" size={size} color={color} />
+          ),
+        }}
+      />
     </Tab.Navigator>
   );
 }
@@ -108,3 +141,4 @@ function App() {
 }
 
 export default App;
+
