@@ -12,6 +12,7 @@ import {
 } from "react-native";
 import { io } from "socket.io-client"; //socket.io-client
 import uuid from "react-native-uuid";
+import { UserContext } from "../Components/UserContext";
 
 class ChatScreen extends Component {
   constructor(props) {
@@ -49,12 +50,17 @@ class ChatScreen extends Component {
     var year = new Date().getFullYear();
     var hour = new Date().getHours();
     var minutes = new Date().getMinutes();
+    let { value, setValue } = this.context;
+
     const msgList = this.state.msgList.map((msg) => (
-      <View style={styles.box}>
+      <View style={styles.box} key={uuid.v4()}>
+        <Text style={{ fontStyle: "italic" }}>
+          {value.username}
+        </Text>
         <Text style={styles.message} key={uuid.v4()}>
           {msg}
         </Text>
-        <Text style={{ fontStyle: "italic" }}>
+        <Text style={{ fontStyle: "italic" }} key={uuid.v4()}>
           {date}/{month}/{year} {hour}:{minutes}
         </Text>
       </View>
@@ -79,6 +85,8 @@ class ChatScreen extends Component {
     );
   }
 }
+ChatScreen.contextType = UserContext;
+
 
 const styles = StyleSheet.create({
   container: {
