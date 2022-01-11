@@ -59,8 +59,12 @@ class HomeScreen extends React.Component {
   render() {
     const excercises = this.state.exercisesList.map((excercise) => (
       <View key={uuid.v4()} style={styles.exercise}>
-        <Text style={styles.description}>{excercise.description}</Text>
-        <Text style={styles.tpw}>{excercise.timesPerWeek}</Text>
+        <Text style={styles.description_tpw}>Description: </Text>
+        <Text>{excercise.description}</Text>
+        <Text style={styles.description_tpw}>
+          Times per week to be performed:
+        </Text>
+        <Text>{excercise.timesPerWeek}</Text>
       </View>
     ));
 
@@ -75,7 +79,7 @@ class HomeScreen extends React.Component {
           }
         >
           <Text style={styles.patientText}>{this.state.user}</Text>
-          <Text style={{ fontSize: 15 }}>
+          <Text style={{ fontSize: 15, paddingLeft: 5 }}>
             Your exercises for this week are:
           </Text>
           {excercises}
@@ -114,7 +118,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     textAlign: "center",
     borderRadius: 10,
-    backgroundColor: "pink",
+    backgroundColor: "#90EAFC",
     padding: 10,
     margin: 2,
   },
@@ -125,12 +129,10 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "dodgerblue",
     fontSize: 20,
+    paddingLeft: 5,
   },
-  description: {
+  description_tpw: {
     fontWeight: "bold",
-  },
-  tpw: {
-    fontStyle: "italic",
   },
 });
 
